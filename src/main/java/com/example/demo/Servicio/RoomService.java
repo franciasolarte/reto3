@@ -41,4 +41,37 @@ public class RoomService {
             }
         }
     }
+
+    public Room update(Room room) {
+        if(room.getId() != null) {
+            Optional<Room> roomFound = getRoom(room.getId());
+            if (!roomFound.isEmpty()) {
+                if (room.getName() != null){
+                    roomFound.get().setName(room.getName());
+                }
+                if (room.getHotel() != null) {
+                    roomFound.get().setHotel(room.getHotel());
+                }
+                if(room.getStars()!=null) {
+                    roomFound.get().setStars(room.getStars());
+                }
+                if(room.getDescription()!=null) {
+                    roomFound.get().setDescription(room.getDescription());
+                }
+                if (room.getCategory() != null) {
+                    roomFound.get().setCategory(room.getCategory());
+                }
+                return roomRepository.save(roomFound.get());
+            }
+        }
+        return room;
+    }
+
+    public boolean delete(int id) {
+        Boolean response = getRoom(id).map(element -> {
+            roomRepository.delete(element);
+            return true;
+        }).orElse(false);
+        return response;
+    }
 }

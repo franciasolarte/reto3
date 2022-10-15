@@ -41,4 +41,36 @@ public class ClientService {
             }
         }
     }
+
+    public Client update(Client client) {
+        if(client.getIdClient() != null) {
+            Optional<Client> clientFound = getClient(client.getIdClient());
+            if (!clientFound.isEmpty()) {
+                if (client.getName() != null){
+                    clientFound.get().setName(client.getName());
+                }
+                if (client.getAge() != null) {
+                    clientFound.get().setAge(client.getAge());
+                }
+                if(client.getPassword()!=null) {
+                    clientFound.get().setPassword(client.getPassword());
+                }
+                return clientRepository.save(clientFound.get());
+            }
+        }
+        return client;
+    }
+
+    public boolean delete(int idClient) {
+        Boolean response = getClient(idClient).map(element -> {
+            clientRepository.delete(element);
+            return true;
+        }).orElse(false);
+        return response;
+
+    }
+
+
+
+
 }

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css"/>
+    <script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+    <meta charset="UTF-8">
+    <title>Hotel </title>
+</head>
+<body>
+
+<div class="container unauthenticated">
+    Para iniciar sesión haz click <a href="/oauth2/authorization/github" >aquí</a>
+</div>
+
+<div class="fs-2 container authenticated" style="display: none">
+    Has sido autenticado: <span id="usuario"></span><br>
+    <button class="btn btn-primary" onclick="document.location.href='homepage.html'">Continuar</button>
+</div>
+
+</body>
+<script type="text/javascript">
+    get("/user", function(data){
+    $("#usuario").html(data.name);
+    $(".unauthenticated").hide();
+    $(".authenticated").show();
+    })
+</script>
+</html>

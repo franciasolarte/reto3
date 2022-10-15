@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package com.example.demo.Servicio;
 
 import com.example.demo.Repositorio.CategoryRepository;
@@ -10,10 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.example.demo.Modelo.Category;
 import java.util.Optional;
-/**
- *
- * @author USUARIO
- */
+
 
 @Service
 
@@ -41,4 +35,30 @@ public class CategoryService {
             }
         }
     }
+
+    public Category update (Category category) {
+        if(category.getId() != null) {
+            Optional<Category> categoryFound = categoryRepository.getCategory(category.getId());
+            if(!categoryFound.isEmpty()) {
+                if(category.getDescription() != null){
+                    categoryFound.get().setDescription(category.getDescription());
+                }
+                if(category.getName() != null){
+                    categoryFound.get().setName(category.getName());
+                }
+                return categoryRepository.save(categoryFound.get());
+            }
+        }
+        return category;
+    }
+
+    public boolean delete(int id) {
+        Boolean resultado = getCategory(id).map(element -> {
+            categoryRepository.delete(element);
+            return true;
+        }).orElse(false);
+        return resultado;
+    }
+
+
 }

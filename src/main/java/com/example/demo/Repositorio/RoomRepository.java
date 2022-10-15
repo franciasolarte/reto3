@@ -32,4 +32,6 @@ public class RoomRepository {
     public Room save(Room room){
         return roomCrud.save(room);
     }
+
+    public void delete (Room room) { roomCrud.delete(room);}
 }

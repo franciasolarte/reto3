@@ -10,13 +10,7 @@ import com.example.demo.Modelo.Category;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  *
@@ -45,5 +39,18 @@ public class CategoryController {
     public Category save (@RequestBody Category category){
         return categoryService.save(category);
     }
-    
+
+    //el put  la ruta es /api/Category/update
+    @PutMapping("/update")
+    @ResponseStatus(HttpStatus.CREATED)
+    public Category update (@RequestBody Category category) {
+        return categoryService.update(category);
+    }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public boolean delete(@PathVariable("id") int id){
+        return categoryService.delete(id);
+    }
+
 }

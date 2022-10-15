@@ -41,4 +41,26 @@ public class MessageService {
             }
         }
     }
+
+    public Message update(Message message) {
+        if(message.getIdMessage() != null) {
+            Optional<Message> messageFound = getMessage(message.getIdMessage());
+            if (!messageFound.isEmpty()) {
+                if (message.getMessageText() != null){
+                    messageFound.get().setMessageText(message.getMessageText());
+                }
+                return messageRepository.save(messageFound.get());
+            }
+        }
+        return message;
+    }
+
+    public boolean delete(int idMessage) {
+        Boolean response = getMessage(idMessage).map(element -> {
+            messageRepository.delete(element);
+            return true;
+        }).orElse(false);
+        return response;
+    }
+
 }
