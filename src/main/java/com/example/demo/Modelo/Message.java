@@ -27,7 +27,7 @@ public class Message {
      private String messageText;
 
     @ManyToOne
-    @JoinColumn(name = "toolId")
+    @JoinColumn(name = "roomId")
     @JsonIgnoreProperties({"messages","reservations"})
     private Room room;
      
@@ -52,11 +52,11 @@ public class Message {
         this.messageText = messageText;
     }
 
-    public Room getTool() {
+    public Room getRoom() {
         return room;
     }
 
-    public void setTool(Room room) {
+    public void setRoom(Room room) {
         this.room = room;
     }
 
